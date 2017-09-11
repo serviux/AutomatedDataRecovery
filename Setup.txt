@@ -1,0 +1,62 @@
+/*******************************\
+Python to exe setup
+
+1) first of make sure the computer you're using has py2exe
+you check this by going to C:/Python27 and looking for 
+'Removepy2exe.exe' or 'py2exe-wininst.log'
+
+2)Next create a setup.py file
+
+3)inside the file make sure it looks like this:
+
+"""
+from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+def setup_exe(fil):
+    setup(
+        options = {'py2exe':{'bundle_files':1}},
+        windows = [{'script': fil}],
+        zipfile = None,
+)
+
+setup_exe(raw_input("Enter the file name including the extension:\n").strip())
+"""
+
+4)This will create a an executeable file in the dist folder with the same 
+name as the python script. This file will be able to run on its own from any
+location.
+
+/************************************\
+
+adding HardFrost as a service
+##if an error has occured check C:/Users/north/Desktop/Errorlog.txt
+
+1) first copy 'HardFrost.exe' onto the computer. Place it in
+'C:/Program Files/HardFrost' -- you'll have to make the folder for it.
+
+2) after you have copied the file open cmd.
+
+
+<!-- keep in mind that there has to be a space between the equal sign and the value-->
+
+
+
+3)type in:  sc create HardFrost binpath= "C:\Program Files\HardFrost\HardFrost.exe" DisplayName= "Hard Frost" start= auto error= normal type= own
+
+
+
+4)if this wokrks you should see '[SC] CreateService SUCESS'
+
+5)to verify that the service has been installed open the run dialogue and type 'services.msc'
+
+6)once the service manager has opened look for "Hard Frost" and make sure it's seto to automatic
+
+
+/**********************************\
+removing a service 
+
+1) open cmd 
+2) type 'sc delete' <service name>
